@@ -1,8 +1,12 @@
 from bs4 import BeautifulSoup, SoupStrainer
+import datetime
 import requests
 session = requests.session()
 
-def get_links_from_tgSite(category_page):
+start_time = datetime.datetime.now()
+print(start_time.strftime("%d/%m/%Y %H:%M:%S"))
+
+def links_from_tgSite(category_page):
     # Get response
     _response = session.get(category_page)
     if _response.status_code != 200: print("STATUS CODE ERR ", _response.status_code)
@@ -43,23 +47,38 @@ def get_links_from_tgSite(category_page):
     print(f"{len(finalLinks)} Telegram news groups & channels found.")
     return finalLinks
 
-tg_links = get_links_from_tgSite("https://www.telegram-group.com/%d7%97%d7%93%d7%a9%d7%95%d7%aa/")
+tgSite_links = links_from_tgSite("https://www.telegram-group.com/%d7%97%d7%93%d7%a9%d7%95%d7%aa/")
 
-# https://www.telegram-group.com/חדשות/%d7%a2%d7%95%d7%9c%d7%9d-%d7%94%d7%97%d7%93%d7%a9%d7%95%d77%aa-%d7%91%d7%98%d7%9c%d7%92%d7%a8%d7%9d/
-# response = session.get(tg_links[0])
-# print(response.status_code)
-# print(response.content)
+def tgLinks_from_tgSite_links():
+    telegram_links = []
+    err_links = []
+    product_link_counter = 1
 
-product_link_counter = 1
-for product_link in tg_links:
-    response = session.get(product_link)
-    if response.status_code != 200: print(product_link_counter, "STATUS CODE ERR ", response.status_code)
+    for product_link in tgSite_links:
+        response = session.get(product_link)
+        if response.status_code != 200:
+            print(product_link_counter, "STATUS CODE ERR ", response.status_code)
+            # print("Err Link is,", product_link)
+            # err_links.append(product_link)
+            # break
 
-    for link in BeautifulSoup(response.content,
-                              parse_only=SoupStrainer('a'),
-                              features="html.parser"):
-        if link.has_attr('href') \
-            and "t.me" in link["href"]: # True / False  | is telegram link
-            print(link['href'])
-    break
-    # for link in tg_links
+        for link in BeautifulSoup(response.content,
+                                  parse_only=SoupStrainer('a'),
+                                  features="html.parser"):
+            if link.has_attr('href') \
+                and "t.me" in link["href"]: # True / False  | is telegram link
+                print(link['href'])
+                telegram_links.append(link['href'])
+
+    telegram_links = list(set(telegram_links)) # To remove duplicates
+    return telegram_links
+
+telegram_links = tgLinks_from_tgSite_links()
+
+finish_time = datetime.datetime.now()
+print(finish_time.strftime("%d/%m/%Y %H:%M:%S"))
+run_time = finish_time - start_time
+print("Overall it took", run_time.seconds, "seconds")
+
+print(telegram_links)
+print(len(telegram_links))

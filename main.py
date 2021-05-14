@@ -1,5 +1,6 @@
 import requests
 import json
+from color_printer import *
 
 # EMAIL =
 EMAIL = "Idanb80@gmail.com"
@@ -7,8 +8,9 @@ PASS = "Idan05423"
 
 session = requests.session()
 
-def get_new_cookie(user, password):
-    print("get_new_cookie()")
+# create cookie for the session
+def set_new_cookie(user, password):
+    print("set_new_cookie()")
     # load as dict for easy edit values
     api_params = json.loads(
         """{
@@ -27,54 +29,61 @@ def get_new_cookie(user, password):
         "name": "user.login",
         "api_params": api_params
     }
-    print()
     login_res = session.get("https://stips.co.il/api", data=payload)
+    # print(type(session.cookies))
     # print(login_res.status_code)
     # print("login_res", login_res.content)
 
-    _cookie = login_res.headers["Set-Cookie"]
-    print(_cookie)
+    # _cookie = response.headers["Set-Cookie"]
+    _cookie = session.cookies.values()
     # _cookie = "Login%5FUser=stype=75r4&password=Vqn0DIHFG&id=EGMGFJ&mail=vqn0oLD%40tznvy%2Ep1z&rememberme=true; expires=Tue, 02-May-2023 23:52:02 GMT; domain=.stips.co.il; path=/"
-    open("Cookie.txt", "w").write(_cookie)
+    open("Cookie.txt", "w").write(_cookie[0]) # Overwrite
+    open("Cookie.txt", "a").write(f"\n{_cookie[1]}") # adds to file
+
 
     return _cookie
-# Set the cookie for the session
 
-def data_based_cookie(isPrintingTime):
-    print("data_based_cookie()")
+# Make a session request to get data
+def get_api_data(isPrinting):
+    print("get_api_data()")
     # Remember: the cookie already embed in the sesssion
 
     # Cookies has been set by the session
     res = session.get("https://stips.co.il/api?name=messages.count&api_params=%7B%7D")
-    print(res.text)
     res_dict = json.loads(res.text)
     notificationsCount = res_dict["data"]["notificationsCount"]
     messagesCount = res_dict["data"]["messagesCount"]
-    if isPrintingTime:
-        print("notificationsCount is", notificationsCount)
-        print("messagesCount is", messagesCount)
+    if isPrinting:
+        printBlue(res.text)
     return notificationsCount, messagesCount
 
+def check_cookies():
+    try:  # try logging by cookies
+        cookieTXT_ls = open("Cookie.txt", "r").read().splitlines()
+        # print("cookieTXT: ", cookieTXT_ls)
+        # ['Login%5FUser', 'ASPSESSIONIDQEQBTBAS']
+        session.cookies.set("Login%5FUser", cookieTXT_ls[0])
+        session.cookies.set("ASPSESSIONIDQEQBTBAS", cookieTXT_ls[1])
+        printYellow("Logged in by Cookies 😋🍪")
+        # print(session.cookies)
+    except:
+        printYellow("Baking new Cookies... 🥣🧑‍🍳")
+        set_new_cookie(EMAIL, PASS)
 
-print("Check if current cookie is tasty...")
-# cookie = open("Cookie.txt", "r").read()
-cookie = "Login%5FUser=stype=75r4&password=Vqn0DIHFG&id=EGMGFJ&mail=vqn0oLD%40tznvy%2Ep1z&rememberme=true; expires=Tue, 02-May-2023 23:52:02 GMT; domain=.stips.co.il; path=/"
-print(session.cookies)
-# session.cookies.set("Set-Cookie", cookie)
-print(session.cookies)
+    api_data = get_api_data(True)  # return notificationsCount, messagesCount
+    if api_data[0] == 0 and api_data[1] == 0:
+        printRed("Something went wrong with the current cookie... 🥴")
+        printYellow("Baking new Cookies... 🥣🧑‍🍳")
+        session.cookies.clear()
+        set_new_cookie(EMAIL, PASS)
+        api_data = get_api_data(True)  # re Set
 
-if data_based_cookie(True)[0] == 0 \
-    and data_based_cookie(True)[1] == 0:
+    printGreen(f"🔔 notificationsCount is {api_data[0]}")
+    printGreen(f"📱 messagesCount is {api_data[1]}")
+    print("---------------------------")
 
-    print("Well, i'll bake new cookie...")
-    cookie = get_new_cookie(EMAIL, PASS)
-    print("New cookie is ready!")
-else:
-    print("Current cookie is great!")
+check_cookies()
 
-print(cookie)
-print(session.cookies)
-data_based_cookie(True)
 
 
 
