@@ -3,7 +3,7 @@ import json
 from color_printer import *
 
 # EMAIL =
-EMAIL = "Idanb80@gmail.com"
+EMAIL = "idanb80@gmail.com"
 PASS = "Idan05423"
 
 session = requests.session()
@@ -23,7 +23,7 @@ def set_new_cookie(user, password):
     api_params["password"] = password
 
     # print(api_params)
-    api_params = json.dumps(api_params)  # dumps for " (Double ')
+    api_params = json.dumps(api_params)  # dumps to change ' to "
 
     payload = {
         "name": "user.login",
@@ -84,6 +84,44 @@ def check_cookies():
 
 check_cookies()
 
+# Response: {"status":"ok","error_code":"","data":{"newid":4909228},"exec_time":"86ms"}
+
+def post_pen_msg():
+
+
+    # payload = {
+    #     "name": "omniobj",
+    #     "rest_action": "PUT",
+    #     "omniobj": """{
+    #       "data": {
+    #         "msg": "Bruh3"
+    #       },
+    #       "objType": "penfriendsitem"
+    #     }"""
+    # }
+
+    omniobj = json.loads("""{
+        "data": {
+            "msg": "PlaceHolder"
+                  },
+          "objType": "penfriendsitem"
+        }""")
+
+    omniobj["data"]["msg"] = "bruh5"
+    omniobj = json.dumps(omniobj) # dumps to change ' to "
+
+    payload = {
+        "name": "omniobj",
+        "rest_action": "PUT",
+        "omniobj": omniobj
+    }
+
+    response = session.post("https://stips.co.il/api", data=payload)
+    # response = session.post("https://stips.co.il/api?name=omniobj&rest_action=PUT&omniobj=%7B%22data%22:%7B%22msg%22:%22BRUH3%22%7D,%22objType%22:%22penfriendsitem%22%7D")
+    print(response.status_code)
+    print(response.request)
+    print(response.content)
+post_pen_msg()
 
 
 
