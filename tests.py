@@ -1,1 +1,2 @@
-from telegram_printer import *
+print(len("hRkFY+5Qnwri11k+cpczP2k3B60thLvo2xgdqCyjHxgKbRy90JN+1d0AcWlWw7e1P9wRQh5eEWlU+2C940j1qg=="))
+print(len("30V2SMJ7GfzCb+3penJ8Lw8G6BN4P8mP1CGC9VaNa3ho4EQouwDyX21RXFL+ccXQ7XolsiO00r6/XCyp3zK1DA=="))

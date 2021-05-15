@@ -42,8 +42,8 @@ def set_new_cookie(user, password):
     # _cookie = response.headers["Set-Cookie"]
     _cookie = session.cookies.values()
     # _cookie = "Login%5FUser=stype=75r4&password=Vqn0DIHFG&id=EGMGFJ&mail=vqn0oLD%40tznvy%2Ep1z&rememberme=true; expires=Tue, 02-May-2023 23:52:02 GMT; domain=.stips.co.il; path=/"
-    open("../StipsCookies.txt", "w").write(_cookie[0]) # Overwrite
-    open("../StipsCookies.txt", "a").write(f"\n{_cookie[1]}") # adds to file
+    open("../stips_Cookies.txt", "w").write(_cookie[0]) # Overwrite
+    open("../stips_Cookies.txt", "a").write(f"\n{_cookie[1]}") # adds to file
 
 
     return _cookie
@@ -66,7 +66,7 @@ def get_api_data(isPrinting):
 # Login by cookies if possible
 def login_stips():
     try:  # try logging by cookies
-        cookieTXT_ls = open("../StipsCookies.txt", "r").read().splitlines()
+        cookieTXT_ls = open("../stips_Cookies.txt", "r").read().splitlines()
         # print("cookieTXT: ", cookieTXT_ls)
         # ['Login%5FUser', 'ASPSESSIONIDQEQBTBAS']
         session.cookies.set("Login%5FUser", cookieTXT_ls[0])
