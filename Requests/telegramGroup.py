@@ -1,6 +1,9 @@
 from bs4 import BeautifulSoup, SoupStrainer
 import datetime
 import requests
+
+## Get all Telegram t.me join links from telegram-group.com Category page
+
 session = requests.session()
 
 start_time = datetime.datetime.now()
