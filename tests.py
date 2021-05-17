@@ -1,48 +1,29 @@
-payload = {
-    "authenticity_token":"rPpr/kYUIvfmOweqrtY3xXtnH5+63iFPPH1EavdHA9yjAylL/B9kvysttX0DZQ+xUWZNlvzaMOhWhx2ke/NtLA==",
-  # "task":{
-    "timing_type":"timingNow",
-    "task_date":"15/05/2021",
-    "fixed_start_date":"",
-    "fixed_end_date":"31/12/2030",
-    "is_sunday":"0",
-    "is_monday":"0",
-    "is_tuesday":"0",
-    "is_wednesday":"0",
-    "is_thursday":"0",
-    "is_friday":"0",
-    "is_saturday":"0",
-    "urgency":"REGULAR",
-    "packages_quantity":"1",
-    "source_location":"76201",
-    "source_name":"ספיידר תלת מימד",
-    "source_city_other":"גדרה",
-    "source_street_other":"חבקוק",
-    "source_zone":"",
-    "source_number":"114",
-    "source_floor":"",
-    "source_apartment":"",
-    "source_notes":"",
-    "source_recipient_name":"אפרת",
-    "source_phone":"0542323167",
-    "source_email":"info@spider3d.co.il‏",
-    "save_source_location":"0",
-    "destination_location":"",
-    "destination_name":"ישראל ישראלי",
-    "destination_city":"תל אביב - יפו",
-    "destination_city_other":"",
-    "destination_street":"ויצמן",
-    "destination_street_other":"",
-    "destination_zone":"",
-    "destination_number":"90",
-    "destination_floor":"",
-    "destination_apartment":"",
-    "destination_notes":"משלוח בקשת בדיקה",
-    "destination_recipient_name":"",
-    "destination_phone":"0584770076",
-    "destination_email":"idanbit80@gmail.com",
-    "save_destination_location":"0",
-    "notes":"pickup-note הערת משלוח",
-    "fixed_appear_time": "6:00",
-    "button":""
+message_details = {
+  'message_id': 80,
+  'from': {
+    'id': 429798438,
+    'is_bot': False,
+    'first_name': 'TheBlackHero™',
+    'username': 'TheBlackHero55',
+    'language_code': 'en'
+  },
+  'chat': {
+    'id': 429798438,
+    'first_name': 'TheBlackHero™',
+    'username': 'TheBlackHero55',
+    'type': 'private'
+  },
+  'date': 1621257947,
+  'text': '/is_online',
+  'entities': [
+    {
+      'offset': 0,
+      'length': 10,
+      'type': 'bot_command'
+    }
+  ]
 }
+
+if message_details["text"] == "/is_online":
+    print(message_details["chat"]["username"])
+    print(message_details["chat"]["id"])
