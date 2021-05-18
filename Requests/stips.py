@@ -129,37 +129,45 @@ def post_pen_msg(msg):
     return pen_msg_id
 
 # pen_msg_id = post_pen_msg("תתעלמו ממני, אני בכלל לא עושה בדיוק תדבר הכי מגניב שיש (האמנם?)")
-pen_msg_id = post_pen_msg("סמיילי מאוהב")
-if pen_msg_id != 0: printGreen("✅ Message has been sent.")
-else: printRed("️Message has not sent❗ \nPlease try again later..")
-print("---------------------------")
+# pen_msg_id = post_pen_msg("סמיילי מאוהב")
+# if pen_msg_id != 0: printGreen("✅ Message has been sent.")
+# else: printRed("️Message has not sent❗ \nPlease try again later..")
+# print("---------------------------")
 
-new_messages = ["PlaceHolder"]
-whileIndex = 0
-while True:
-    # response = session.get("https://stips.co.il/api?name=messages.list&api_params=%7B%22page%22:1%7D")
-    response = session.get("https://stips.co.il/api?name=messages.list")
-    response = json.loads(response.content)
+def check_online_user():
+    from pprint import pprint
+    # response = session.get('https://stips.co.il/api?name=omniobj&rest_action=GET&omniobj={"objType":"user","data":{"id":146235}}')
+    response = session.get('https://stips.co.il/api?name=omniobj&rest_action=GET&omniobj={"objType":"user","data":{"id":290006}}')
+    pprint(response.status_code)
+    pprint(response.content)
+check_online_user()
 
-    lasted_msg = response["data"]["messages"][0]
-    user_chat = lasted_msg["itemProfile"]["userid"]
-    from_user = lasted_msg["fromuserid"]
-
-    # print(lasted_msg["msg"])
-    # printBlue(f"new_messages: {new_messages}")
-
-    if lasted_msg != new_messages[-1]\
-            and from_user == user_chat: # There new message & It's not from you
-        new_messages.append(lasted_msg)
-        printGreen("You got new message! 🛎")
-        print(lasted_msg["msg"])
-    # else: printYellow(f"No new messages found yet.")
-    # print(new_messages)
-
-    whileIndex += 1
-    # if whileIndex == 100:
-    #   break
-    sleep(5) # 5*60 times = 5 minutes
+# new_messages = ["PlaceHolder"]
+# whileIndex = 0
+# while True:
+#     # response = session.get("https://stips.co.il/api?name=messages.list&api_params=%7B%22page%22:1%7D")
+#     response = session.get("https://stips.co.il/api?name=messages.list")
+#     response = json.loads(response.content)
+#
+#     lasted_msg = response["data"]["messages"][0]
+#     user_chat = lasted_msg["itemProfile"]["userid"]
+#     from_user = lasted_msg["fromuserid"]
+#
+#     # print(lasted_msg["msg"])
+#     # printBlue(f"new_messages: {new_messages}")
+#
+#     if lasted_msg != new_messages[-1]\
+#             and from_user == user_chat: # There new message & It's not from you
+#         new_messages.append(lasted_msg)
+#         printGreen("You got new message! 🛎")
+#         print(lasted_msg["msg"])
+#     # else: printYellow(f"No new messages found yet.")
+#     # print(new_messages)
+#
+#     whileIndex += 1
+#     # if whileIndex == 100:
+#     #   break
+#     sleep(5) # 5*60 times = 5 minutes
 
 
 
