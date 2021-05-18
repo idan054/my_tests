@@ -1,0 +1,7 @@
+pandas~=1.2.4
+scikit-learn~=0.24.2
+telebot~=0.0.4
+requests~=2.25.1
+beautifulsoup4~=4.9.3
+tqdm~=4.60.0
+colorama~=0.4.4

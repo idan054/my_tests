@@ -1,6 +1,10 @@
 from time import sleep
 import requests
 import json
+from tqdm import tqdm
+from colorama import Fore, Back, Style
+import time
+import sys
 # from color_printer import *
 
 ## Login stips (by cookies if possible)
@@ -96,3 +100,56 @@ def login_stips():
     print(f"📱 messagesCount is {api_data[1]}")
     print("---------------------------")
 login_stips()
+
+def check_online_user(_id):
+    from pprint import pprint
+    # response = session.get('https://stips.co.il/api?name=omniobj&rest_action=GET&omniobj={"objType":"user","data":{"id":146235}}')
+
+    mini_payload = {
+          "objType": "user",
+          "data": {
+            "id": 000000
+          }
+}
+
+    mini_payload["data"]["id"] = _id
+    mini_payload = str(mini_payload)
+    # print(mini_payload)
+
+    url = f'https://stips.co.il/api?name=omniobj&rest_action=GET&omniobj={str(mini_payload)}'.replace("'", '"')
+    # print(url)
+    # url = 'https://stips.co.il/api?name=omniobj&rest_action=GET&omniobj={"objType":"user","data":{"id":146235}}'
+    # print(url)
+
+    response = session.get(url)
+    # pprint(response.content)
+    user_data = json.loads(response.content)
+    _user_id = user_data["data"]["omniOmniObj"]["data"]["id"]
+    _nickname = user_data["data"]["omniOmniObj"]["data"]["nickname"]
+    _is_online = user_data["data"]["omniOmniObj"]["extra"]["item_profile"]["online"]
+    return _user_id, _nickname, _is_online
+
+old_online_status  = "PlaceHolder"
+online_status_text = ""
+while_index = 1
+online_user_id =  input("Please insert the stips user id:") or 139326 # AKA TheBiton
+while True:
+    user_id, nickname, is_online = check_online_user(_id=online_user_id)
+
+    print(f"\nLoop number: {while_index} | {str(while_index / 60)[:3]} hours past since launch")
+
+    if is_online: online_status_text = "Online ✅"
+    else: online_status_text = "Offline 🌚"
+
+    if is_online != old_online_status:
+        print(f"User {user_id}, AKA {nickname} is currently {online_status_text}")
+        old_online_status = is_online
+
+    while_index += 1
+    # sleep(60)
+
+    #* 1 min loading bar
+    for i in tqdm(range(60),
+                  desc=Fore.GREEN + "Loading",
+                  ascii=False, ncols=70, unit=""):
+        time.sleep(1)
