@@ -6,6 +6,16 @@ from colorama import Fore, Back, Style
 import time
 import sys
 # from color_printer import *
+import datetime
+from time import sleep
+import telegram_send
+
+def telegram_printer(text):
+    print("----------------------------")
+    print("Also available on Telegram:")
+    print(text)
+    telegram_send.send(messages=[text])
+    print("----------------------------")
 
 ## Login stips (by cookies if possible)
 ## post pen message
@@ -142,7 +152,7 @@ while True:
     else: online_status_text = "Offline 🌚"
 
     if is_online != old_online_status:
-        print(f"User {user_id}, AKA {nickname} is currently {online_status_text}")
+        telegram_printer(f"User {user_id}, AKA {nickname} is currently {online_status_text}")
         old_online_status = is_online
 
     while_index += 1
