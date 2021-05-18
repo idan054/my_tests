@@ -63,7 +63,6 @@ def get_api_data(isPrinting):
         printBlue(res.text)
     return notificationsCount, messagesCount
 
-
 # Login by cookies if possible
 def login_stips():
     try:  # try logging by cookies

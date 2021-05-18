@@ -1,3 +1,4 @@
-from color_printer import color_printer
+# from color_printer import *
 
-printRed("gg")
+# printRed("gg")
+print("lol")
