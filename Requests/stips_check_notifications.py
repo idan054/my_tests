@@ -7,8 +7,24 @@ import json
 # from color_printer import *
 from tqdm import tqdm
 from colorama import Fore, Back, Style
+from time import sleep
+import requests
+import json
+from tqdm import tqdm
+from colorama import Fore, Back, Style
+import time
+import sys
+# from color_printer import *
+import datetime
+from time import sleep
+import telegram_send
 
-
+def telegram_printer(text):
+    print("----------------------------")
+    print("Also available on Telegram:")
+    print(text)
+    telegram_send.send(messages=[text])
+    print("----------------------------")
 
 ## Login stips (by cookies if possible)
 ## post pen message
@@ -95,9 +111,9 @@ while True:
 
     api_data = get_api_data(False)  # return notificationsCount, messagesCount
     if api_data[1] != msgCount_lastUpdate:
-        print(f"📱 You have {api_data[1]} new messages on Stips")
+        telegram_printer(f"📱 You have {api_data[1]} new messages on Stips")
         msgCount_lastUpdate = api_data[1]
-        print("---------------------------")
+        # print("---------------------------")
 
     while_index += 1
     # sleep(10)
