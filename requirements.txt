@@ -5,3 +5,5 @@ requests~=2.25.1
 beautifulsoup4~=4.9.3
 tqdm~=4.60.0
 colorama~=0.4.4
+pyperclip~=1.8.2
+jsonurl~=1.0.0
