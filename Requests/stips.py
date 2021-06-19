@@ -43,8 +43,8 @@ def set_new_cookie(user, password):
     # _cookie = response.headers["Set-Cookie"]
     _cookie = session.cookies.values()
     # _cookie = "Login%5FUser=stype=75r4&password=Vqn0DIHFG&id=EGMGFJ&mail=vqn0oLD%40tznvy%2Ep1z&rememberme=true; expires=Tue, 02-May-2023 23:52:02 GMT; domain=.stips.co.il; path=/"
-    open("config/stips_Cookies.txt", "w").write(_cookie[0]) # Overwrite
-    open("config/stips_Cookies.txt", "a").write(f"\n{_cookie[1]}") # adds to file
+    open("../config/stips_Cookies.txt", "w").write(_cookie[0]) # Overwrite
+    open("../config/stips_Cookies.txt", "a").write(f"\n{_cookie[1]}") # adds to file
 
 
     return _cookie
@@ -139,7 +139,20 @@ def check_online_user():
     response = session.get('https://stips.co.il/api?name=omniobj&rest_action=GET&omniobj={"objType":"user","data":{"id":290006}}')
     pprint(response.status_code)
     pprint(response.content)
-check_online_user()
+# check_online_user()
+
+def get_pen_msgs(msg_index):
+    from pprint import pprint
+    response = session.get('https://stips.co.il/api?name=objectlist&api_params=%7B%22method%22:%22penfriendsitem.new%22,%22page%22:1%7D')
+    # response = session.get('https://stips.co.il/api?name=omniobj&rest_action=GET&omniobj={"objType":"user","data":{"id":290006}}')
+    # pprint(response.status_code)
+    # pprint(response.text)
+    pen_msgs = json.loads(response.text)
+    print(pen_msgs)
+    # pprint(pen_msgs["data"][msg_index]["data"]["userid"])
+    # pprint(pen_msgs["data"][msg_index]["data"]["msg"])
+    # pprint(pen_msgs["data"][msg_index]["extra"]["item_profile"]["nickname"])
+get_pen_msgs(0)
 
 # new_messages = ["PlaceHolder"]
 # whileIndex = 0
