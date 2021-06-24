@@ -158,6 +158,7 @@ old_online_status  = "PlaceHolder"
 online_status_text = ""
 while_index = 1
 selected_user_id = input("Please insert the stips user id:") or 139326 # AKA TheBiton
+my_pen_msgs = []
 while True:
     pen_msgs = get_pen_msgs()
     # print(pen_msgs)
@@ -167,13 +168,14 @@ while True:
         pen_msg = pen_msgs["data"][forIndex]["data"]["msg"]
         pen_nickname = pen_msgs["data"][forIndex]["extra"]["item_profile"]["nickname"]
 
-        if pen_userid == selected_user_id:
+        if pen_userid == selected_user_id and pen_msg not in my_pen_msgs:
             # print(pen_userid)
             # print(pen_msg)
             # print(pen_nickname)
             # print("forIndex:", forIndex)
             # print("forIndex:", forIndex)
             telegram_printer(text=f"המסר בסטיפס מאת הביטון: \n {pen_msg}")
+            my_pen_msgs.append(pen_msg)
         else:
             print(forIndex, "|" , pen_userid, "!=", selected_user_id)
             # print(pen_msg)
