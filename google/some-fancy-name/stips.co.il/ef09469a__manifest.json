@@ -1,0 +1,21 @@
+
+{
+  "name": "Stips",
+  "short_name": "Stips",
+  "lang": "he",
+  "start_url": "/?pwa_ver=1.0",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/images/stipsapp/icons/mipmap-xxhdpi/ic_launcher.png",
+      "sizes": "144X144",
+      "type": "image/png"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "play",
+      "id": "com.stipsapp"
+    }
+  ]
+}

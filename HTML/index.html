@@ -1,0 +1,28 @@
+<!--Source: https://www.youtube.com/watch?v=-mNp3-UX9Qc-->
+<title>Access an &lt;iframe&gt; document</title>
+<!--<link rel="stylesheet", href="">-->
+<!--<link rel="stylesheet", href="">-->
+
+<body>
+    <h1>Access an &lt;iframe&gt; document</h1>
+    <button onclick="changeStuff()">change Stuff </button>
+    <hr>
+    <iframe id="myIframe" src="./content.html" frameborder="1" ></iframe>
+
+    <script>
+        const myIframe = document.getElementById("myIframe");
+
+        function changeStuff(){
+            // const iframeWindow = myIframe.contentWindow
+            const iframeDocument = myIframe.contentDocument
+            const iframeHeading = iframeDocument.querySelector("h1"); // Selecting the 1st h1
+
+            // console.log(iframeWindow.document)
+            console.log(iframeDocument)
+
+            // document.body.style.backgroundColor = "ff0000";
+            iframeDocument.body.style.backgroundColor = "ff0000";
+            iframeHeading.textContent = "Text has been changed!"
+        }
+    </script>
+</body>

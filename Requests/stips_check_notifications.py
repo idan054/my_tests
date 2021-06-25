@@ -31,8 +31,10 @@ def telegram_printer(text):
 ## check for new private messages (get)
 
 # EMAIL =
-EMAIL = input("Enter email, default is TheBiton") or "idanb80@gmail.com"
-PASS = input("Enter pass, default is TheBiton") or  "Idan05423"
+# EMAIL = input("Enter email, default is TheBiton") or "idanb80@gmail.com"
+# PASS = input("Enter pass, default is TheBiton") or  "Idan05423"
+EMAIL = "idanb80@gmail.com"
+PASS = "Idan05423"
 
 session = requests.session()
 
@@ -80,6 +82,8 @@ def get_api_data(isPrinting):
     # Cookies has been set by the session
     res = session.get("https://stips.co.il/api?name=messages.count&api_params=%7B%7D")
     res_dict = json.loads(res.text)
+    print("res_dict")
+    print(res_dict)
     notificationsCount = res_dict["data"]["notificationsCount"]
     messagesCount = res_dict["data"]["messagesCount"]
     if isPrinting:

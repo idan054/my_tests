@@ -7,3 +7,5 @@ tqdm~=4.60.0
 colorama~=0.4.4
 pyperclip~=1.8.2
 jsonurl~=1.0.0
+Flask~=1.1.2
+telegram~=0.0.1
