@@ -37,8 +37,8 @@ def create_delivery():
         # 'source_zone': '',
 
         'destination_city': 'גדרה',
-        'destination_street': 'חבקוק',
-        'destination_number': '114',
+        # 'destination_street': 'חבקוק',
+        # 'destination_number': '114',
         'destination_floor': '',
         'destination_apartment': '',
         'destination_notes': 'אייל-058-5551234',
@@ -47,7 +47,7 @@ def create_delivery():
         'destination_email': 'info@spider3d.co.il',
         # 'destination_city_other': 'גדרה',
         # 'destination_location': '33787',
-        # 'destination_name': 'ספיידרתלתמימד',
+        'destination_name': 'ספיידרתלתמימד',
         # 'destination_zone': '',
         # 'destination_street_other': 'חבקוק',
 
@@ -96,7 +96,7 @@ def create_delivery():
     # pyperclip.copy(response.text)
     if response.status_code == 200:
         print(response.status_code)
-        # print(response.text)
+        pprint(response.text)
         print("Delivery has been created successfully")
     else:
         print(response.status_code)

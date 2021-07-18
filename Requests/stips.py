@@ -154,6 +154,10 @@ def get_pen_msgs(msg_index):
     # pprint(pen_msgs["data"][msg_index]["extra"]["item_profile"]["nickname"])
 get_pen_msgs(0)
 
+
+
+
+
 # new_messages = ["PlaceHolder"]
 # whileIndex = 0
 # while True:
@@ -800,6 +804,3 @@ get_pen_msgs(0)
 #   "exec_time": "234ms"
 # }
 # endregion FULL RESPONSE:
-
-
-
