@@ -1,9 +1,18 @@
-isPrinting = True
-messagesCount = 1
-notificationsCount = 2
+from pprint import pprint
 
-print(isPrinting)
-print(messagesCount)
-print(notificationsCount)
-if isPrinting and messagesCount != 0 and notificationsCount != 0:
-    print('A')
+pen_history = {'data': []}
+pen_history = [].
+
+
+pen_history.append( {
+        'msg_id': 55,
+        'msg_content': 'lol is cool',
+        'user_id': 234565,
+        'user_nickname': 'The Biton',
+        'time_str': 234565,
+    })
+for item in pen_history:
+        if 'x' != item['msg_content']:
+                print('XXX')
+
+pprint(pen_history)

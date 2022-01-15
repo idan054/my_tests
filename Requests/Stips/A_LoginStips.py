@@ -53,7 +53,7 @@ class LoginStips:
         # _cookie = "Login%5FUser=stype=75r4&password=Vqn0DIHFG&id=EGMGFJ&mail=vqn0oLD%40tznvy%2Ep1z&rememberme=true; expires=Tue, 02-May-2023 23:52:02 GMT; domain=.stips.co.il; path=/"
         open("config/stips_Cookies.txt", "w").write(_cookie[0])  # Overwrite
         open("config/stips_Cookies.txt", "a").write(f"\n{_cookie[1]}")  # adds to file
-        open("config/stips_Cookies.txt", "a").write(f"user_id: {user_id}")  # adds to file
+        open("config/stips_Cookies.txt", "a").write(f"\nuser_id: {user_id}")  # adds to file
 
         return user_id
 

@@ -8,8 +8,8 @@ from color_printer import *
 class StipsRoutinesTasks:
     # Set changeable Values: loginData = LoginStips(session, 'idan@', 'mypass')
     def __init__(self, session, user, password):
-    # def __init__(self, session= None, user= 'x', password ='x'):
-    # def __init__(self, user=10, password='idan default'):
+        # def __init__(self, session= None, user= 'x', password ='x'):
+        # def __init__(self, user=10, password='idan default'):
         self.session = session
         self.userEmail = user
         self.password = password
@@ -29,10 +29,11 @@ class StipsRoutinesTasks:
         notificationsCount = res_dict["data"]["notificationsCount"]
         messagesCount = res_dict["data"]["messagesCount"]
         if isPrinting \
-            and messagesCount != 0:
+                and messagesCount != 0:
             # or notificationsCount != 0:
-            printGreen(f'User {self.userEmail} Have 📱 {messagesCount} massages & 🔔 {notificationsCount} notifications.')
-        elif isPrinting: # (and messagesCount = 0)
+            printGreen(
+                f'User {self.userEmail} Have 📱 {messagesCount} massages & 🔔 {notificationsCount} notifications.')
+        elif isPrinting:  # (and messagesCount = 0)
             printGrey(f'User {self.userEmail} Have 0 new massages 📱.')
 
         # printBlue(res.text)
@@ -67,7 +68,7 @@ class StipsRoutinesTasks:
             printGrey(f'User "{user_nick}" is currently Offline 🌚')
 
     # check_online_user()
-    def get_pen_msgs(self, current_user_id):
+    def get_pen_msgs(self, current_user_id, pen_history):
         session = self.session
         user = self.userEmail
         password = self.password
@@ -76,7 +77,29 @@ class StipsRoutinesTasks:
         res = session.get('https://stips.co.il/api?name=objectlist&api_params={"method":"penfriendsitem.new","page":1}')
         # pprint(response.status_code)
         pen_msgs = json.loads(res.text)
-        print(pen_msgs)
-        # pen_userid = pen_msgs["data"][msg_index]["data"]["userid"]
-        # pen_msg = pen_msgs["data"][msg_index]["data"]["msg"]
-        # pen_nickname = pen_msgs["data"][msg_index]["extra"]["item_profile"]["nickname"]
+
+        forIndex = 0
+        for item in pen_msgs['data']:
+            i = forIndex
+            # Change pen_msgs["data"][i]["data"] -> item[i]
+            msg_id = pen_msgs["data"][i]["data"]["userid"]
+            msg_content = pen_msgs["data"][i]["data"]["msg"]
+            user_id = pen_msgs["data"][i]["data"]["userid"]
+            user_nickname = pen_msgs["data"][i]["extra"]["item_profile"]["nickname"]
+            time_str = pen_msgs["data"][i]["data"]["userid"]
+
+            print(f'user_id {user_id} OOO current_user_id {current_user_id}')
+            if user_id == current_user_id:  # if pen-msg is from current user
+                print(f'user_id {user_id} = current_user_id {current_user_id}')
+                pen_history.append({
+                    'msg_id': msg_id,
+                    'msg_content': msg_content,
+                    'user_id': user_id,
+                    'user_nickname': user_nickname,
+                    'time_str': time_str,
+                })
+                printGreen(f'{user_nickname}: {msg_content}\npen-msg Added.')
+                print(pen_history)
+            forIndex += 1
+
+        return pen_history

@@ -23,12 +23,12 @@ session = requests.session()
 if __name__ == '__main__':
     print('Start')
 
-    ### 1. Loging in user
+    ## 1. Loging user
     EMAIL = input('Please insert ur user email:') or  "idanb80@hotmail.com"
     PASS = input('Please insert ur user password:') or  "Idan05423"
     loginData = LoginStips(session, EMAIL, PASS) # This is not a func call. just set vars in class
     print(f'1. Login User...')
-    user_id = LoginStips.login_stips(loginData)
+    current_user_id = LoginStips.login_stips(loginData)
     # region Note: (optionally) get full user data by profile page & user id
     # currentUserData = {
     #     'id': 337166,
@@ -41,6 +41,7 @@ if __name__ == '__main__':
     print('====================================================')
 
 
+    ## 2. Notify new messages?
     loginData = StipsRoutinesTasks(session, EMAIL, PASS) # This is not a func call. just set vars in class
     notify_messages = input('2. Notify when new massages comes? (yes/no)') or 'yes'
     if notify_messages.lower() == 'yes':
@@ -49,6 +50,7 @@ if __name__ == '__main__':
     print('====================================================')
 
 
+    ## 3. Notify when specific user Online?
     notify_online = input('3. Notify when some user online? (yes/no)') or 'yes'
     if notify_online.lower() == 'yes':
         userId = input('Ok. Please enter the id of the user u like to follow:') or 337166
@@ -57,16 +59,20 @@ if __name__ == '__main__':
     print('====================================================')
 
 
-    save_ur_history_msgs = input('4.Save ur pen messages history? (yes/no)') or 'yes'
+    ## 4. Save ur pen messages history?
+    # pen_history = {'data': []}
+    pen_history = []
+    save_ur_history_msgs = input('4. Save ur pen messages history? (yes/no)') or 'yes'
     if save_ur_history_msgs.lower() == 'yes':
         printYellow('I will save ur pen messages history! [Available Soon..]')
-        # get_pen_msgs(loginData, ) # Save if its urs
+        pen_history = StipsRoutinesTasks.get_pen_msgs(loginData, current_user_id, pen_history) # Save if its urs
         printGreen('[MOCK] Ur pen messages history: (3) \nאחי זה הכי אחי\nאם תרצו אין זו אגדה באדוקק')
+        printGreen(pen_history)
     print('====================================================')
 
 
     print('5.Track Stips users activity based pen friends?')
-    printYellow('I will update how many messages have been sent \n& how many users have been online in the next hour! [Available Soon..]')
+    printYellow('I will update next hour: \nHow many pen messages have been sent. \n& How many users have been online. [Available Soon..]')
     # get_penMsgs() # reset every hour & save every new user and msg id counter
     printGreen('There was overall - 67 - pen massages from - 19 - users in the last 1 hour')
     print('====================================================')
