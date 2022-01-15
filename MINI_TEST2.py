@@ -1,7 +1,7 @@
 from pprint import pprint
 
 pen_history = {'data': []}
-pen_history = [].
+pen_history = []
 
 
 pen_history.append( {

@@ -60,14 +60,20 @@ if __name__ == '__main__':
 
 
     ## 4. Save ur pen messages history?
-    # pen_history = {'data': []}
     pen_history = []
+    # pen_history = {'data': []}
+    #   pen_history = [  {
+    #   'msg_id': 5916290,
+    #   'msg_content': 'היי',
+    #   'user_id': 321654,
+    #   'user_nickname': 'LadyWinx',
+    #   'time_str': 321654
+    # }]
     save_ur_history_msgs = input('4. Save ur pen messages history? (yes/no)') or 'yes'
     if save_ur_history_msgs.lower() == 'yes':
         printYellow('I will save ur pen messages history! [Available Soon..]')
+        #         printGreen('[MOCK] Ur pen messages history: (3) \nאחי זה הכי אחי\nאם תרצו אין זו אגדה באדוקק')
         pen_history = StipsRoutinesTasks.get_pen_msgs(loginData, current_user_id, pen_history) # Save if its urs
-        printGreen('[MOCK] Ur pen messages history: (3) \nאחי זה הכי אחי\nאם תרצו אין זו אגדה באדוקק')
-        printGreen(pen_history)
     print('====================================================')
 
 
@@ -95,10 +101,11 @@ while True:
     #     old_online_status = is_online
 
     while_index += 1
-    # sleep(60)
+    sleep(60)
 
     #* 1 min loading bar
-    for i in tqdm(range(60),
-                  desc=Fore.GREEN + "Loading",
-                  ascii=False, ncols=70, unit=""):
-        time.sleep(1)
+
+    # for i in tqdm(range(60),
+    #               desc=Fore.GREEN + "Loading",
+    #               ascii=False, ncols=70, unit=""):
+    #     time.sleep(1)
