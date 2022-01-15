@@ -142,7 +142,7 @@ def check_online_user(_id):
 old_online_status  = "PlaceHolder"
 online_status_text = ""
 while_index = 1
-online_user_id =  input("Please insert the stips user id:") or 139326 # AKA TheBiton
+online_user_id =  input("Please insert the stips user id:") or 339413 # or 139326 # AKA TheBiton
 
 while True:
     user_id, nickname, is_online = check_online_user(_id=online_user_id)
