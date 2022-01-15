@@ -4,8 +4,8 @@ import json
 from color_printer import *
 
 
-# a get_notifications() func & check_online_user()
-class OnlineNotification:
+# a funcs that need to be in While True
+class StipsRoutinesTasks:
     # Set changeable Values: loginData = LoginStips(session, 'idan@', 'mypass')
     def __init__(self, session, user, password):
     # def __init__(self, session= None, user= 'x', password ='x'):
@@ -67,3 +67,16 @@ class OnlineNotification:
             printGrey(f'User "{user_nick}" is currently Offline 🌚')
 
     # check_online_user()
+    def get_pen_msgs(self, current_user_id):
+        session = self.session
+        user = self.userEmail
+        password = self.password
+
+        # response = session.get('https://stips.co.il/api?name=objectlist&api_params=%7B%22method%22:%22penfriendsitem.new%22,%22page%22:1%7D')
+        res = session.get('https://stips.co.il/api?name=objectlist&api_params={"method":"penfriendsitem.new","page":1}')
+        # pprint(response.status_code)
+        pen_msgs = json.loads(res.text)
+        print(pen_msgs)
+        # pen_userid = pen_msgs["data"][msg_index]["data"]["userid"]
+        # pen_msg = pen_msgs["data"][msg_index]["data"]["msg"]
+        # pen_nickname = pen_msgs["data"][msg_index]["extra"]["item_profile"]["nickname"]
