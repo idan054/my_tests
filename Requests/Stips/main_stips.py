@@ -19,22 +19,29 @@ if __name__ == '__main__':
     printYellow(f'User {EMAIL} logged in!')
     print('====================================================')
 
+
     loginData = OnlineNotification(session, EMAIL, PASS) # This is not a func call. just set vars in class
     notify_messages = input('2. Notify when new massages comes? (yes/no)') or 'yes'
     if notify_messages.lower() == 'yes':
         OnlineNotification.get_notifications(loginData, True)
-        print('Ok. I will notify when new message come! [Available Soon..]')
+        printYellow('I will notify when new message come! [Available Soon..]')
     print('====================================================')
 
-    notify_messages = input('3. Notify when some user online? (yes/no)') or 'yes'
 
-    if notify_messages.lower() == 'yes':
+    notify_online = input('3. Notify when some user online? (yes/no)') or 'yes'
+    if notify_online.lower() == 'yes':
         userId = input('Ok. Please enter the id of the user u like to follow:') or 337166
         OnlineNotification.check_online_user(loginData, userId)
-        print('Ok. I will notify when this user online! [Available Soon..]')
+        printYellow('I will notify when this user online! [Available Soon..]')
     print('====================================================')
 
 
-    print('4.Track Stips users activity based pen friends?')
+    save_ur_history_msgs = input('4.Save ur pen messages history? (yes/no)') or 'yes'
+    if save_ur_history_msgs.lower() == 'yes':
+        # get_urLasted_penMsg()
+        printYellow('I will save ur pen messages history! [Available Soon..]')
+    print('====================================================')
+
+    print('5.Track Stips users activity based pen friends?')
     print('?? Ok. How many times a day should I Update u?')
     print('There was overall - 67 - massages from - 19 - users in the last 1 hour')

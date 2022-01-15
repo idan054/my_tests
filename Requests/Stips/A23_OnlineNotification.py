@@ -28,11 +28,16 @@ class OnlineNotification:
         res_dict = json.loads(res.text)
         notificationsCount = res_dict["data"]["notificationsCount"]
         messagesCount = res_dict["data"]["messagesCount"]
-        if isPrinting:
-            # printBlue(res.text)
+        if isPrinting \
+            and messagesCount != 0:
+            # or notificationsCount != 0:
             printGreen(f'User {self.userEmail} Have 📱 {messagesCount} massages & 🔔 {notificationsCount} notifications.')
-            # printGreen(f"🔔 notificationsCount is {notificationsCount}")
-            # printGreen(f"📱 messagesCount is {messagesCount}")
+        elif isPrinting: # (and messagesCount = 0)
+            printGrey(f'User {self.userEmail} Have 0 new massages 📱.')
+
+        # printBlue(res.text)
+        # printGreen(f"🔔 notificationsCount is {notificationsCount}")
+        # printGreen(f"📱 messagesCount is {messagesCount}")
         return notificationsCount, messagesCount
 
     # Check if specific user is online
@@ -57,8 +62,8 @@ class OnlineNotification:
         # print('User 337166, AKA  "The Biton" is currently Offline 🌚')
         # print(f'User {user_nick} online status is ')
         if user_online_status:
-            print(f'User "{user_nick}" is currently Online ✅')
+            printGreen(f'User "{user_nick}" is currently Online ✅')
         else:
-            print(f'User "{user_nick}" is currently Offline 🌚')
+            printGrey(f'User "{user_nick}" is currently Offline 🌚')
 
     # check_online_user()
