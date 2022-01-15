@@ -8,17 +8,16 @@ from color_printer import *
 ## check for new private messages (get)
 
 class LoginStips:
-
-    # Can be change and set by: loginData = LoginStips(session, 'idan@', 'mypass')
+    # Set changeable Values: loginData = LoginStips(session, 'idan@', 'mypass')
     def __init__(self, session, user, password):
     # def __init__(self, user=10, password='idan default'):
         self.session = session
-        self.user = user
+        self.userEmail = user
         self.password = password
 
     def set_new_cookie(self):
         session = self.session
-        user = self.user
+        user = self.userEmail
         password = self.password
 
         # print("set_new_cookie()")
@@ -56,7 +55,7 @@ class LoginStips:
     # Login by cookies if possible
     def login_stips(self):
         session = self.session
-        user = self.user
+        user = self.userEmail
         password = self.password
 
         try:  # try logging by cookies
@@ -73,33 +72,11 @@ class LoginStips:
             # create cookie for the session
             LoginStips.set_new_cookie(self)
 
-        api_data = LoginStips.get_api_data(self, True)  # return notificationsCount, messagesCount
-        if api_data[0] == 0 and api_data[1] == 0:
-            printRed("Something went wrong with the current cookie... 🥴")
-            printYellow("Baking new Cookies... 🥣🧑‍🍳")
-            session.cookies.clear()
-            LoginStips.set_new_cookie(self)
-            api_data = LoginStips.get_api_data(self, True)  # re Set
-
-        printGreen(f"🔔 notificationsCount is {api_data[0]}")
-        printGreen(f"📱 messagesCount is {api_data[1]}")
-        print("---------------------------")
+        # api_data = LoginStips.get_api_data(self, True)  # return notificationsCount, messagesCount
+        # if api_data[0] == 0 and api_data[1] == 0:
+        #     printRed("Something went wrong with the current cookie... 🥴")
+        #     printYellow("Baking new Cookies... 🥣🧑‍🍳")
+        #     session.cookies.clear()
+        #     LoginStips.set_new_cookie(self)
+        #     api_data = LoginStips.get_api_data(self, True)  # re Set
     # login_stips(EMAIL, PASS)
-
-    # Make a session request to get data
-    def get_api_data(self, isPrinting):
-        session = self.session
-        user = self.user
-        password = self.password
-
-        # print("get_api_data()")
-        # Remember: the cookie already embed in the sesssion
-
-        # Cookies has been set by the session
-        res = session.get("https://stips.co.il/api?name=messages.count&api_params=%7B%7D")
-        res_dict = json.loads(res.text)
-        notificationsCount = res_dict["data"]["notificationsCount"]
-        messagesCount = res_dict["data"]["messagesCount"]
-        if isPrinting:
-            printBlue(res.text)
-        return notificationsCount, messagesCount
