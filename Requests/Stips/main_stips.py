@@ -59,7 +59,7 @@ if __name__ == '__main__':
     print('====================================================')
 
 
-    ## 4. Save ur pen messages history?
+    ## 4. Save my pen messages history?
     pen_history = []
     # pen_history = {'data': []}
     #   pen_history = [  {
@@ -76,7 +76,7 @@ if __name__ == '__main__':
         pen_history = StipsRoutinesTasks.get_pen_msgs(loginData, current_user_id, pen_history) # Save if its urs
     print('====================================================')
 
-
+    ## 4. Save all pen messages stats? (overall msg & user count, gender)
     print('5.Track Stips users activity based pen friends?')
     printYellow('I will update next hour: \nHow many pen messages have been sent. \n& How many users have been online. [Available Soon..]')
     # get_penMsgs() # reset every hour & save every new user and msg id counter
