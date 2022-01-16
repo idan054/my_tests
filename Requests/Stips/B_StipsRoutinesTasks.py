@@ -58,14 +58,16 @@ class StipsRoutinesTasks:
         # print(res_dict)
         user_nick = res_dict['data']['omniOmniObj']['extra']['item_profile']['nickname']
         user_online_status = res_dict['data']['omniOmniObj']['extra']['item_profile']['online']
+        # print(user_online_status)
+        # print()
 
         # print('User 337166, AKA  "The Biton" is currently Online ✅')
         # print('User 337166, AKA  "The Biton" is currently Offline 🌚')
         # print(f'User {user_nick} online status is ')
         if user_online_status:
-            printGreen(f'User "{user_nick}" is currently Online ✅')
+            printGreen(f'\nUser "{user_nick}" is currently Online ✅')
         else:
-            printGrey(f'User "{user_nick}" is currently Offline 🌚')
+            printGrey(f'\nUser "{user_nick}" is currently Offline 🌚')
 
     # check_online_user()
     def get_pen_msgs(self, current_user_id, pen_history = [], pen_stats = {}):

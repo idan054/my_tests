@@ -100,11 +100,23 @@ if __name__ == '__main__':
 
     while_index = 0
     while True:
-        print(f"\nLoop number: {while_index} | {str(while_index / 60)[:3]} hours past since launch")
+        print('====================================================')
+        print(f"Loop number: {while_index} | {str(while_index / 60)[:3]} hours past since launch")
 
         # Notify new messages
-        StipsRoutinesTasks.get_notifications(loginData, True)
-        print('====================================================')
+        if notify_messages: StipsRoutinesTasks.get_notifications(loginData, True),
+
+        # Notify when specific user Online
+        if notify_online:  StipsRoutinesTasks.check_online_user(loginData, userId) # Get full data of specific user
+
+        if save_ur_history_msgs: pen_history ,pen_stats = StipsRoutinesTasks\
+            .get_pen_msgs(loginData, current_user_id, pen_history, pen_stats) # Save if its urs
+
+
+
+        print('====================================================') # userId isn't set if not notify_online
+
+
 
         # sleep(60)
         while_index += 1
