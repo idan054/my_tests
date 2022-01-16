@@ -61,6 +61,19 @@ if __name__ == '__main__':
 
     ## 4. Save my pen messages history?
     pen_history = []
+    pen_stats = {
+        'start_msgId' : 0,
+        'finish_msgId' : 0,
+        'msg_counter' : 0,
+        'short_msg_length' : 70, # About 2 lines
+        'short_msg_counter' : 0,
+        'long_msg_counter' : 0,
+        'overall_online_users' : 0,
+        'male_online_user' : 0, # From profile user
+        'female_online_user' : 0, # From profile user
+        'returning_users' : 0, # From profile user - users who were active 4 times in the last 2 weeks
+        'loyal_users' : 0, # From profile user - a 6+ month old users
+    }
     # pen_history = {'data': []}
     #   pen_history = [  {
     #   'msg_id': 5916290,
@@ -73,39 +86,31 @@ if __name__ == '__main__':
     if save_ur_history_msgs.lower() == 'yes':
         printYellow('I will save ur pen messages history! [Available Soon..]')
         #         printGreen('[MOCK] Ur pen messages history: (3) \nאחי זה הכי אחי\nאם תרצו אין זו אגדה באדוקק')
-        pen_history = StipsRoutinesTasks.get_pen_msgs(loginData, current_user_id, pen_history) # Save if its urs
+        pen_history ,pen_stats = StipsRoutinesTasks.get_pen_msgs(loginData, current_user_id, pen_history, pen_stats) # Save if its urs
     print('====================================================')
 
-    ## 4. Save all pen messages stats? (overall msg & user count, gender)
+    ## 5. Save all pen messages stats? (overall msg & user count, gender)
     print('5.Track Stips users activity based pen friends?')
     printYellow('I will update next hour: \nHow many pen messages have been sent. \n& How many users have been online. [Available Soon..]')
     # get_penMsgs() # reset every hour & save every new user and msg id counter
-    printGreen('There was overall - 67 - pen massages from - 19 - users in the last 1 hour')
     print('====================================================')
 
-# Add telegram_printer() with now(), to know the time in the console
-# Add a While True method to always run the needed funcs.
+    # Add telegram_printer() with now(), to know the time in the console
+    # Add a While True method to always run the needed funcs.
 
-while_index = 0
-while True:
-    print(f"\nLoop number: {while_index} | {str(while_index / 60)[:3]} hours past since launch")
+    while_index = 0
+    while True:
+        print(f"\nLoop number: {while_index} | {str(while_index / 60)[:3]} hours past since launch")
 
-    # user_id, nickname, is_online = check_online_user(_id=online_user_id)
-    #
-    #
-    # if is_online: online_status_text = "Online ✅"
-    # else: online_status_text = "Offline 🌚"
-    #
-    # if is_online != old_online_status:
-    #     telegram_printer(f"User {user_id}, AKA {nickname} is currently {online_status_text}")
-    #     old_online_status = is_online
+        # Notify new messages
+        StipsRoutinesTasks.get_notifications(loginData, True)
+        print('====================================================')
 
-    while_index += 1
-    sleep(60)
+        # sleep(60)
+        while_index += 1
+        # * 1 min loading bar
+        for i in tqdm(range(10),
+                      desc=Fore.GREEN + "Loading",
+                      ascii=False, ncols=70, unit=""):
+            time.sleep(1)
 
-    #* 1 min loading bar
-
-    # for i in tqdm(range(60),
-    #               desc=Fore.GREEN + "Loading",
-    #               ascii=False, ncols=70, unit=""):
-    #     time.sleep(1)
