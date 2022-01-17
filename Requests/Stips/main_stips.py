@@ -24,7 +24,8 @@ if __name__ == '__main__':
     print('Start')
 
     ## 1. Loging user
-    EMAIL = input('Please insert ur user email:') or  "idanb80@hotmail.com"
+    ## Save email on cookies to make sure cookies is updated!
+    EMAIL = input('Please insert ur user email:') or  "idanbit80+2@gmail.com"
     PASS = input('Please insert ur user password:') or  "Idan05423"
     loginData = LoginStips(session, EMAIL, PASS) # This is not a func call. just set vars in class
     print(f'1. Login User...')
@@ -61,6 +62,7 @@ if __name__ == '__main__':
 
     ## 4. Save my pen messages history?
     pen_history = []
+    overall_pen_ids = []
     pen_stats = {
         'start_msgId' : 0,
         'finish_msgId' : 0,
@@ -109,9 +111,10 @@ if __name__ == '__main__':
         # Notify when specific user Online
         if notify_online:  StipsRoutinesTasks.check_online_user(loginData, userId) # Get full data of specific user
 
+        # Save my pen messages history
+        # Save all pen messages stats
         if save_ur_history_msgs: pen_history ,pen_stats = StipsRoutinesTasks\
-            .get_pen_msgs(loginData, current_user_id, pen_history, pen_stats) # Save if its urs
-
+            .get_pen_msgs(loginData, current_user_id, pen_history, pen_stats, overall_pen_ids) # Save if its urs
 
 
         print('====================================================') # userId isn't set if not notify_online

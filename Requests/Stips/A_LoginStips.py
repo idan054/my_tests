@@ -42,7 +42,9 @@ class LoginStips:
         res = session.get("https://stips.co.il/api", data=payload)
         res_dict = json.loads(res.text)
         # print('res_dict')
+        # print(res_dict)
         user_id = res_dict['data']['appUser']['id']
+        user_email = res_dict['data']['appUser']['email']
 
         # print(type(session.cookies))
         # print(res.status_code)
@@ -54,28 +56,37 @@ class LoginStips:
         open("config/stips_Cookies.txt", "w").write(_cookie[0])  # Overwrite
         open("config/stips_Cookies.txt", "a").write(f"\n{_cookie[1]}")  # adds to file
         open("config/stips_Cookies.txt", "a").write(f"\nuser_id: {user_id}")  # adds to file
+        open("config/stips_Cookies.txt", "a").write(f"\nuser_email: {user_email}")  # adds to file
 
-        return user_id
+        return user_id, user_email
 
     # Login by cookies if possible
     def login_stips(self):
         session = self.session
-        user = self.userEmail
+        userEmail = self.userEmail
         password = self.password
 
         try:  # try logging by cookies
             cookieTXT_ls = open("config/stips_Cookies.txt", "r").read().splitlines()
             # print("cookieTXT: ", cookieTXT_ls)
             # ['Login%5FUser', 'ASPSESSIONIDQEQBTBAS']
+
             session.cookies.set("Login%5FUser", cookieTXT_ls[0])
             session.cookies.set("ASPSESSIONIDQEQBTBAS", cookieTXT_ls[1])
             user_id = cookieTXT_ls[2].replace('user_id: ','')
-            printYellow("Logged in by Cookies 😋🍪")
-            # print(session.cookies)
+            user_email = cookieTXT_ls[3].replace('user_email: ','')
+            if userEmail != user_email:
+                printBlue('Account changed detected!')
+                printYellow("Baking new Cookies... 🥣🧑‍🍳")
+                # create cookie for the session
+                user_id, user_email = LoginStips.set_new_cookie(self)
+            else:
+                printYellow("Logged in by Cookies 😋🍪")
+                # print(session.cookies)
         except:
             printYellow("Baking new Cookies... 🥣🧑‍🍳")
             # create cookie for the session
-            user_id = LoginStips.set_new_cookie(self)
+            user_id, user_email = LoginStips.set_new_cookie(self)
 
         # api_data = LoginStips.get_api_data(self, True)  # return notificationsCount, messagesCount
         # if api_data[0] == 0 and api_data[1] == 0:
