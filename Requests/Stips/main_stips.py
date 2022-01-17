@@ -62,11 +62,15 @@ if __name__ == '__main__':
 
     ## 4. Save my pen messages history?
     pen_history = []
-    overall_pen_ids = []
+    overall_msg_ids = []
+    overall_users_ids = []
     pen_stats = {
         'start_msgId' : 0,
         'finish_msgId' : 0,
         'msg_counter' : 0,
+        'session_min' : 70, # Static set
+        'average_session_min' : 0, # Time the user was online with 15-min break limit
+        'average_penMsg_perSession' : 0,
         'short_msg_length' : 70, # About 2 lines
         'short_msg_counter' : 0,
         'long_msg_counter' : 0,
@@ -88,7 +92,8 @@ if __name__ == '__main__':
     if save_ur_history_msgs.lower() == 'yes':
         printYellow('I will save ur pen messages history! [Available Soon..]')
         #         printGreen('[MOCK] Ur pen messages history: (3) \nאחי זה הכי אחי\nאם תרצו אין זו אגדה באדוקק')
-        pen_history ,pen_stats = StipsRoutinesTasks.get_pen_msgs(loginData, current_user_id, pen_history, pen_stats) # Save if its urs
+        pen_history ,pen_stats = StipsRoutinesTasks.get_pen_msgs(loginData,
+                 current_user_id, pen_history, pen_stats, overall_msg_ids, overall_users_ids) # Save if its urs
     print('====================================================')
 
     ## 5. Save all pen messages stats? (overall msg & user count, gender)
@@ -102,30 +107,42 @@ if __name__ == '__main__':
 
     while_index = 0
     while True:
-        print('====================================================')
-        print(f"Loop number: {while_index} | {str(while_index / 60)[:3]} hours past since launch")
+        try:
+            print('====================================================')
+            print(f"Loop number: {while_index} | {str(while_index / 60)[:3]} hours past since launch")
 
-        # Notify new messages
-        if notify_messages: StipsRoutinesTasks.get_notifications(loginData, True),
+            # Notify new messages
+            if notify_messages: StipsRoutinesTasks.get_notifications(loginData, True),
 
-        # Notify when specific user Online
-        if notify_online:  StipsRoutinesTasks.check_online_user(loginData, userId) # Get full data of specific user
+            # Notify when specific user Online
+            if notify_online:  StipsRoutinesTasks.check_online_user(loginData, userId) # Get full data of specific user
 
-        # Save my pen messages history
-        # Save all pen messages stats
-        if save_ur_history_msgs: pen_history ,pen_stats = StipsRoutinesTasks\
-            .get_pen_msgs(loginData, current_user_id, pen_history, pen_stats, overall_pen_ids) # Save if its urs
-
-
-        print('====================================================') # userId isn't set if not notify_online
+            # Save my pen messages history
+            # Save all pen messages stats
+            if save_ur_history_msgs: pen_history ,pen_stats = StipsRoutinesTasks\
+                .get_pen_msgs(loginData, current_user_id, pen_history, pen_stats, overall_msg_ids, overall_users_ids) # Save if its urs
 
 
+            print('====================================================') # userId isn't set if not notify_online
 
-        # sleep(60)
-        while_index += 1
-        # * 1 min loading bar
-        for i in tqdm(range(10),
-                      desc=Fore.GREEN + "Loading",
-                      ascii=False, ncols=70, unit=""):
-            time.sleep(1)
 
+
+            # sleep(60)
+            while_index += 1
+            # * 1 min loading bar
+            for i in tqdm(range(10),
+                          desc=Fore.GREEN + "Loading",
+                          ascii=False, ncols=30, unit=""):
+                time.sleep(1)
+        except:
+            print(f'Can\'t run loop {while_index}')
+            print('Final Stats:')
+            printBlue(f'''
+            There was overall: {pen_stats['msg_counter']} pen Messages \
+            ({pen_stats['short_msg_counter']} Short - {pen_stats['long_msg_counter']} Long)
+            from {pen_stats['overall_online_users']} users \
+            ({pen_stats['male_online_user']} Male - {pen_stats['female_online_user']} Female)
+                    ''')
+            print(pen_stats)
+            print(pen_history)
+            printRed('Something went wrong. probably the Ethernet...')

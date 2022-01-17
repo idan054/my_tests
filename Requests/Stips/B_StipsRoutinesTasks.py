@@ -70,8 +70,8 @@ class StipsRoutinesTasks:
             printGrey(f'\nUser "{user_nick}" is currently Offline 🌚')
 
     # check_online_user()
-    def get_pen_msgs(self, current_user_id, pen_history = [],
-                     pen_stats = {}, overall_pen_ids = [],):
+    def get_pen_msgs(self, current_user_id, pen_history,
+                     pen_stats, overall_msg_ids, overall_users_ids):
         session = self.session
         user = self.userEmail
         password = self.password
@@ -83,7 +83,6 @@ class StipsRoutinesTasks:
         # print(pen_msgs)
 
         forIndex = 0
-        users_id = []
         for item in pen_msgs['data']:
             i = forIndex
             # print(i)
@@ -114,25 +113,30 @@ class StipsRoutinesTasks:
                             'time_str': time_str,
                         })
                         # printGreen(f'{user_nickname}: {msg_content}\npen-msg Added.')
+
             save_currentUser_penMsgs()
 
-
+            # print(pen_stats['overall_online_users'] )
             def save_penMsgs_stats():
                 # print('save_penMsgs_stats()')
+                # start_msgId
+                if pen_stats['start_msgId'] == 0: pen_stats['start_msgId'] = msg_id
+                # finish_msgId
+                pen_stats['finish_msgId'] = msg_id
+                if msg_id not in overall_msg_ids:
+                    # msg_counter
+                    pen_stats['msg_counter'] = pen_stats['msg_counter'] + 1  # pen_stats['start_msgId'] - msg_id
+                    if len(msg_content) < pen_stats['short_msg_length']:
+                        # short_msg_counter
+                        pen_stats['short_msg_counter'] = 1 + pen_stats['short_msg_counter']
+                        # long_msg_counter
+                        pen_stats['long_msg_counter'] = pen_stats['msg_counter'] - pen_stats['short_msg_counter']
+                    if user_id not in overall_users_ids:
+                        overall_users_ids.append(user_id)  # else users_id
+                        # overall_online_users
+                        pen_stats['overall_online_users'] = len(overall_users_ids)
 
-                # print(f'({len(msg_content)}) {msg_content}')
-                if pen_stats['start_msgId'] == 0: pen_stats['start_msgId'] = msg_id      # start_msgId
-                pen_stats['finish_msgId'] = msg_id                                       # finish_msgId
-                pen_stats['msg_counter'] = i+1 # pen_stats['start_msgId'] - msg_id       # msg_counter
-                if msg_id not in overall_pen_ids and\
-                        len(msg_content) < pen_stats['short_msg_length']:                # short_msg_length (70)
-                       pen_stats['short_msg_counter'] += 1                               # short_msg_counter
-                elif msg_id not in overall_pen_ids and\
-                        len(msg_content) > pen_stats['short_msg_length']:
-                    pen_stats['long_msg_counter'] += 1                                   # long_msg_counter
-                if user_id not in users_id: users_id.append(user_id) # else users_id
-                pen_stats['overall_online_users'] = len(users_id)
-                if msg_id not in overall_pen_ids: overall_pen_ids.append(msg_id)
+                overall_msg_ids.append(msg_id)
 
             save_penMsgs_stats()
 
@@ -140,7 +144,7 @@ class StipsRoutinesTasks:
 
         # print(pen_stats)
         printGreen(f'Ur pen messages history: ({len(pen_history)})')
-        for _item in pen_history: printGreen(_item["msg_content"])
+        for _item in pen_history: printBlue(_item["msg_content"])
 
         # There was overall: 67 - pen massages from - 19 - users in the last 1 hour
         # 'start_msgId': 0,
@@ -155,7 +159,7 @@ class StipsRoutinesTasks:
         # 'returning_users' : 0, # From profile user - users who were active 4 times in the last 2 weeks
         # 'loyal_users' : 0, # From profile user - a 6+ month old users
 
-# start_msgId: {pen_stats['start_msgId']} - finish_msgId: {pen_stats['finish_msgId']}
+        # start_msgId: {pen_stats['start_msgId']} - finish_msgId: {pen_stats['finish_msgId']}
         printGreen(f'''
 There was overall: {pen_stats['msg_counter']} pen Messages \
 ({pen_stats['short_msg_counter']} Short - {pen_stats['long_msg_counter']} Long)
