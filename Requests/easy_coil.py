@@ -8,12 +8,18 @@ session = requests.session()
 start_time = datetime.datetime.now()
 print(start_time.strftime("%d/%m/%Y %H:%M:%S"))
 resp = session.get('https://easy.co.il/json/list.json?listpage=2&c=17440&c2=15140&c3=4968')
-if resp.status_code != 200: print("STATUS CODE ERR ", resp.status_code)
+if resp.status_code != 200:
+    biz_list = []
+    print("STATUS CODE ERR ", resp.status_code)
 else:
     print(resp.status_code)
-    biz_list = resp.json()['bizlist']['list'][0]
-    print(biz_list)
-    # image with formula: =IMAGE("https://i.imgur.com/gtfe7oc.png", 2)
+    biz_list = resp.json()['bizlist']['list']
+    # print(biz_list)
+
+easy_biz_links = []
+forIndex = 0
+for i in biz_list:
+    biz_list.append()
 
 # print('1')
 # print(biz_list['logo'])
