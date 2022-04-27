@@ -1,14 +1,14 @@
-from bs4 import BeautifulSoup, SoupStrainer
+# from bs4 import BeautifulSoup, SoupStrainer
 import datetime
 import requests
 
 ## Get all Telegram t.me join links from telegram-group.com Category page
+from bs4 import BeautifulSoup, SoupStrainer
 
 session = requests.session()
 
 start_time = datetime.datetime.now()
 print(start_time.strftime("%d/%m/%Y %H:%M:%S"))
-
 def links_from_tgSite(category_page):
     # Get response
     _response = session.get(category_page)

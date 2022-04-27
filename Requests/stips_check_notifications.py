@@ -33,7 +33,7 @@ def telegram_printer(text):
 # EMAIL =
 # EMAIL = input("Enter email, default is TheBiton") or "idanb80@gmail.com"
 # PASS = input("Enter pass, default is TheBiton") or  "Idan05423"
-EMAIL = "idanb80@gmail.com"
+EMAIL = "idanbit80+2@gmail.com"
 PASS = "Idan05423"
 
 session = requests.session()
@@ -122,7 +122,7 @@ while True:
     while_index += 1
     # sleep(10)
     #* 1 min loading bar
-    for i in tqdm(range(30),
+    for i in tqdm(range(60),
                   desc=Fore.GREEN + "Loading",
                   ascii=False, ncols=70, unit=""):
         sleep(1)

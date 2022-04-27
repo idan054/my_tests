@@ -160,7 +160,8 @@ while True:
     # sleep(60)
 
     #* 1 min loading bar
-    for i in tqdm(range(60),
+    # for i in tqdm(range(60),
+    for i in tqdm(range(10),
                   desc=Fore.GREEN + "Loading",
-                  ascii=False, ncols=70, unit=""):
+                  ascii=False, ncols=50, unit=""):
         time.sleep(1)
