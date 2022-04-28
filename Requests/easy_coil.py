@@ -17,9 +17,9 @@ else:
     # print(biz_list)
 
 easy_biz_links = []
-forIndex = 0
 for i in biz_list:
-    biz_list.append()
+    easy_biz_links.append(f'https://easy.co.il{i["url"]}')
+print(easy_biz_links)
 
 # print('1')
 # print(biz_list['logo'])
@@ -50,30 +50,34 @@ sht1 = gc.open_by_key('1qX31t2nKxVpDgbaSN5c1q4YUYLR2KqedV2CZrtvohKA').get_worksh
 # Format the header
 # sht1.format('A1:B1', {'textFormat': {'bold': True}})
 
-action_link = str(biz_list['actions'][0]['link'])
-fb_link = ''
-if 'facebook' in action_link:
-    fb_link = action_link
-    action_link = ''
+
+for biz in biz_list:
+    current_row = len(sht1.col_values(3)) + 1  # AKA Column 'C'
+    print(f'current_row: {current_row}')
+    action_link = str(biz['actions'][0]['link'])
+    fb_link = ''
+    if 'facebook' in action_link:
+        fb_link = action_link
+        action_link = ''
 
 
-# Or update a single cell
-sht1.update('A8:N8', [[
-'1',                                             # מס' שורה
-f'=IMAGE(\"{str(biz_list["logo"])}\", 2)',       # לוגו העסק
-biz_list['bizname'],                             # שם העסק
-action_link,                                     # קישור לעסק
-biz_list['address'],                             # כתובת
-'',                                              # מייל
-'',                                              # הערות
-biz_list['phone'],                               # טלפון
-'',                                              # אינסטגם
-fb_link,                                         # פייסבוק
-str(biz_list['url']).replace('/page/', ''),      # מס עסק איזי
-f"https://easy.co.il{biz_list['url']}",          # קישור איזי
-'',                                              # ביקורים החודש בחנות פיזית
-'',                                              # similarweb - ביקורים החודש
-]])
+    # Or update a single cell
+    sht1.update(f'A{current_row}:N{current_row}', [[
+    f'{current_row}',                            # מס' שורה
+    f'=IMAGE(\"{str(biz["logo"])}\", 2)',       # לוגו העסק
+    biz['bizname'],                             # שם העסק
+    action_link,                                # קישור לעסק
+    biz['address'],                             # כתובת
+    '',                                         # מייל
+    '',                                         # הערות
+    biz['phone'],                               # טלפון
+    '',                                         # אינסטגם
+    fb_link,                                    # פייסבוק
+    str(biz['url']).replace('/page/', ''),      # מס עסק איזי
+    f"https://easy.co.il{biz['url']}",          # קישור איזי
+    '',                                         # ביקורים החודש בחנות פיזית
+    '',                                         # similarweb - ביקורים החודש
+    ]])
 
 print('Done.')
 
