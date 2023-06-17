@@ -1,7 +1,7 @@
 from time import sleep
 import requests
 import json
-from color_printer import *
+# from color_printer import *
 from Requests.Stips.A_LoginStips import LoginStips
 from Requests.Stips.B_StipsRoutinesTasks import StipsRoutinesTasks
 from time import sleep

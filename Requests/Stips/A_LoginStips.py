@@ -1,7 +1,8 @@
 from time import sleep
 import requests
 import json
-from color_printer import *
+# from color_printer import *
+from Models.colorPrinter import *
 
 ## Login stips (by cookies if possible)
 ## post pen message

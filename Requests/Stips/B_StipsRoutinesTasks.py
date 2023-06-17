@@ -1,8 +1,8 @@
 from time import sleep
 import requests
 import json
-from color_printer import *
-
+# from color_printer import *
+from Models.colorPrinter import *
 
 # a funcs that need to be in While True
 class StipsRoutinesTasks:
@@ -87,11 +87,14 @@ class StipsRoutinesTasks:
             i = forIndex
             # print(i)
             # Change pen_msgs["data"][i]["data"] -> item[i]
+            print(item)
+            print('--')
+            print(item['extra'])
             msg_id = pen_msgs["data"][i]["data"]["id"]
             msg_content = pen_msgs["data"][i]["data"]["msg"]
-            user_id = pen_msgs["data"][i]["data"]["userid"]
+            user_id = pen_msgs["data"][i]["extra"]['item_profile']["userid"]
             user_nickname = pen_msgs["data"][i]["extra"]["item_profile"]["nickname"]
-            time_str = pen_msgs["data"][i]["data"]["userid"]
+            time_str = pen_msgs["data"][i]["extra"]['item_profile']["userid"]
 
             def save_currentUser_penMsgs():
                 # print('save_currentUser_penMsgs()')
