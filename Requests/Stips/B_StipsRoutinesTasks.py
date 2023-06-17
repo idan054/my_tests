@@ -26,6 +26,7 @@ class StipsRoutinesTasks:
 
         # Cookie has been set by the session
         res = session.get("https://stips.co.il/api?name=messages.count&api_params=%7B%7D")
+        print(f'res.text {res.text}')
         res_dict = json.loads(res.text)
         notificationsCount = res_dict["data"]["notificationsCount"]
         messagesCount = res_dict["data"]["messagesCount"]
