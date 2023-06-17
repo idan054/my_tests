@@ -3,6 +3,7 @@ import requests
 import json
 # from color_printer import *
 from Models.colorPrinter import *
+from Models.TelegramPrinter import telegram_printer
 
 ## Login stips (by cookies if possible)
 ## post pen message
@@ -83,6 +84,7 @@ class LoginStips:
                 user_id, user_email = LoginStips.set_new_cookie(self)
             else:
                 printYellow("Logged in by Cookies 😋🍪")
+                telegram_printer("Logged in by Cookies 😋🍪")
                 # print(session.cookies)
         except:
             printYellow("Baking new Cookies... 🥣🧑‍🍳")

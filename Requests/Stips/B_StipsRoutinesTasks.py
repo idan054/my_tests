@@ -3,6 +3,7 @@ import requests
 import json
 # from color_printer import *
 from Models.colorPrinter import *
+from Models.TelegramPrinter import telegram_printer
 
 # a funcs that need to be in While True
 class StipsRoutinesTasks:
@@ -33,8 +34,10 @@ class StipsRoutinesTasks:
             # or notificationsCount != 0:
             printGreen(
                 f'User {self.userEmail} Have 📱 {messagesCount} massages & 🔔 {notificationsCount} notifications.')
+            telegram_printer(f'User {self.userEmail} Have 📱 {messagesCount} massages & 🔔 {notificationsCount} notifications.')
         elif isPrinting:  # (and messagesCount = 0)
             printGrey(f'User {self.userEmail} Have 0 new massages 📱.')
+            telegram_printer(f'User {self.userEmail} Have 0 new massages 📱.')
 
         # printBlue(res.text)
         # printGreen(f"🔔 notificationsCount is {notificationsCount}")
@@ -66,8 +69,10 @@ class StipsRoutinesTasks:
         # print(f'User {user_nick} online status is ')
         if user_online_status:
             printGreen(f'\nUser "{user_nick}" is currently Online ✅')
+            telegram_printer(f'\nUser "{user_nick}" is currently Online ✅')
         else:
             printGrey(f'\nUser "{user_nick}" is currently Offline 🌚')
+            telegram_printer(f'\nUser "{user_nick}" is currently Offline 🌚')
 
     # check_online_user()
     def get_pen_msgs(self, current_user_id, pen_history,
@@ -115,7 +120,8 @@ class StipsRoutinesTasks:
                             'user_nickname': user_nickname,
                             'time_str': time_str,
                         })
-                        # printGreen(f'{user_nickname}: {msg_content}\npen-msg Added.')
+                        printGreen(f'{user_nickname}: {msg_content}\npen-msg Added.')
+                        telegram_printer(f'{user_nickname}: {msg_content}\npen-msg Added.')
 
             save_currentUser_penMsgs()
 
@@ -147,6 +153,7 @@ class StipsRoutinesTasks:
 
         # print(pen_stats)
         printGreen(f'Ur pen messages history: ({len(pen_history)})')
+        telegram_printer(f'Ur pen messages history: ({len(pen_history)})')
         for _item in pen_history: printBlue(_item["msg_content"])
 
         # There was overall: 67 - pen massages from - 19 - users in the last 1 hour
@@ -169,5 +176,14 @@ There was overall: {pen_stats['msg_counter']} pen Messages \
 from {pen_stats['overall_online_users']} users \
 ({pen_stats['male_online_user']} Male - {pen_stats['female_online_user']} Female)
         ''')
+
+        telegram_printer(
+            f'''
+There was overall: {pen_stats['msg_counter']} pen Messages \
+({pen_stats['short_msg_counter']} Short - {pen_stats['long_msg_counter']} Long)
+from {pen_stats['overall_online_users']} users \
+({pen_stats['male_online_user']} Male - {pen_stats['female_online_user']} Female)
+        '''
+        )
 
         return pen_history, pen_stats

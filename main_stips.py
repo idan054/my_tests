@@ -43,6 +43,7 @@ if __name__ == '__main__':
     # }
     # endregion Can run here profile page to get full data based id
     printYellow(f'User {EMAIL} logged in!')
+    telegram_printer(f'User {EMAIL} logged in!')
     print('====================================================')
 
 
