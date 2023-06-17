@@ -87,9 +87,9 @@ class StipsRoutinesTasks:
             i = forIndex
             # print(i)
             # Change pen_msgs["data"][i]["data"] -> item[i]
-            print(item)
-            print('--')
-            print(item['extra'])
+#             print(item)
+#             print('--')
+#             print(item['extra'])
             msg_id = pen_msgs["data"][i]["data"]["id"]
             msg_content = pen_msgs["data"][i]["data"]["msg"]
             user_id = pen_msgs["data"][i]["extra"]['item_profile']["userid"]
