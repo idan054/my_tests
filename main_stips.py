@@ -135,7 +135,7 @@ if __name__ == '__main__':
             # sleep(60)
             while_index += 1
             # * 1 min loading bar
-            for i in tqdm(range(10),
+            for i in tqdm(range(60),
                           desc=Fore.GREEN + "Loading",
                           ascii=False, ncols=30, unit=""):
                 time.sleep(1)

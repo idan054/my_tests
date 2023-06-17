@@ -38,7 +38,6 @@ class StipsRoutinesTasks:
             telegram_printer(f'User {self.userEmail} Have 📱 {messagesCount} massages & 🔔 {notificationsCount} notifications.')
         elif isPrinting:  # (and messagesCount = 0)
             printGrey(f'User {self.userEmail} Have 0 new massages 📱.')
-            telegram_printer(f'User {self.userEmail} Have 0 new massages 📱.')
 
         # printBlue(res.text)
         # printGreen(f"🔔 notificationsCount is {notificationsCount}")
@@ -73,7 +72,7 @@ class StipsRoutinesTasks:
             telegram_printer(f'\nUser "{user_nick}" is currently Online ✅')
         else:
             printGrey(f'\nUser "{user_nick}" is currently Offline 🌚')
-            telegram_printer(f'\nUser "{user_nick}" is currently Offline 🌚')
+            # telegram_printer(f'\nUser "{user_nick}" is currently Offline 🌚')
 
     # check_online_user()
     def get_pen_msgs(self, current_user_id, pen_history,
@@ -178,13 +177,5 @@ from {pen_stats['overall_online_users']} users \
 ({pen_stats['male_online_user']} Male - {pen_stats['female_online_user']} Female)
         ''')
 
-        telegram_printer(
-            f'''
-There was overall: {pen_stats['msg_counter']} pen Messages \
-({pen_stats['short_msg_counter']} Short - {pen_stats['long_msg_counter']} Long)
-from {pen_stats['overall_online_users']} users \
-({pen_stats['male_online_user']} Male - {pen_stats['female_online_user']} Female)
-        '''
-        )
 
         return pen_history, pen_stats

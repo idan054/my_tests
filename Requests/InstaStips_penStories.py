@@ -174,7 +174,7 @@ while True:
             # print(pen_nickname)
             # print("forIndex:", forIndex)
             # print("forIndex:", forIndex)
-            telegram_printer(text=f"המסר בסטיפס מאת הביטון: \n {pen_msg}")
+            telegram_printer(text=f"המסר בסטיפס: \n {pen_msg}")
             my_pen_msgs.append(pen_msg)
         else:
             print(forIndex, "|" , pen_userid, "!=", selected_user_id)
@@ -190,7 +190,7 @@ while True:
     # sleep(60)
 
     #* 1 min loading bar
-    for i in tqdm(range(10),
+    for i in tqdm(range(30),
                   desc=Fore.GREEN + "Loading",
                   ascii=False, ncols=70, unit=""):
         time.sleep(1)
