@@ -10,7 +10,7 @@ import json
 from tqdm import tqdm
 from colorama import Fore, Back, Style
 import time
-# from Models.colorPrinter import *
+from Models.colorPrinter import *
 # from color_printer import *
 # from color_printer import *
 import sys
