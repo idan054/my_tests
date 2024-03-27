@@ -118,8 +118,8 @@ if __name__ == '__main__':
 
             # Save my pen messages history
             # Save all pen messages stats
-            if save_ur_history_msgs: pen_history ,pen_stats = StipsRoutinesTasks \
-                .get_pen_msgs(loginData, current_user_id, pen_history, pen_stats, overall_msg_ids, overall_users_ids) # Save if its urs
+            # if save_ur_history_msgs: pen_history ,pen_stats = StipsRoutinesTasks \
+            #     .get_pen_msgs(loginData, current_user_id, pen_history, pen_stats, overall_msg_ids, overall_users_ids) # Save if its urs
 
 
             print('====================================================') # userId isn't set if not notify_online
