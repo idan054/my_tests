@@ -1,10 +1,8 @@
-from time import sleep
-import requests
 import json
 import asyncio
 # from color_printer import *
-from Models.colorPrinter import *
-from Models.TelegramPrinter import telegram_printer
+from colorPrinter import *
+from TelegramPrinter import telegram_printer
 
 ## Login stips (by cookies if possible)
 ## post pen message

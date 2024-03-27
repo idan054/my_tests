@@ -1,9 +1,7 @@
-from time import sleep
-import requests
 import json
 # from color_printer import *
-from Models.colorPrinter import *
-from Models.TelegramPrinter import telegram_printer
+from colorPrinter import *
+from TelegramPrinter import telegram_printer
 import asyncio
 
 # a funcs that need to be in While True
@@ -53,13 +51,12 @@ class StipsRoutinesTasks:
         user = self.userEmail
         password = self.password
 
-        from pprint import pprint
         # response = session.get('https://stips.co.il/api?name=omniobj&rest_action=GET&omniobj={"objType":"user","data":{"id":146235}}')
         res = session.get(
             # 'https://stips.co.il/api?name=omniobj&rest_action=GET&omniobj={"objType":"user","data":{"id":290006}}')
             'https://stips.co.il/api?name=omniobj&rest_action=GET&omniobj={"objType":"user","data":{"id":' +
             f'{userId}' + '}}')
-        # pprint(response.status_code)
+        # print(res.status_code)
         res_dict = json.loads(res.text)
         # print(res_dict)
         user_nick = res_dict['data']['omniOmniObj']['extra']['item_profile']['nickname']

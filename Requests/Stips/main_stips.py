@@ -1,22 +1,13 @@
-from time import sleep
+from TelegramPrinter import telegram_printer
+from A_LoginStips import LoginStips
+from B_StipsRoutinesTasks import StipsRoutinesTasks
 import requests
-import json
-from Models.TelegramPrinter import telegram_printer
-from Requests.Stips.A_LoginStips import LoginStips
-from Requests.Stips.B_StipsRoutinesTasks import StipsRoutinesTasks
-from time import sleep
-import requests
-import json
 from tqdm import tqdm
-from colorama import Fore, Back, Style
+from colorama import Fore
 import time
-from Models.colorPrinter import *
+from colorPrinter import *
 # from color_printer import *
 # from color_printer import *
-import sys
-import datetime
-from time import sleep
-import telegram_send
 import asyncio
 ## USE THIS COMMAND:
 # pip install --upgrade python-telegram-bot==13.14 && pip install --upgrade telegram_send==0.34

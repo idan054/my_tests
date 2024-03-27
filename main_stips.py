@@ -1,6 +1,6 @@
-### USE THE /stips main_stips.py INSTEAD
-### USE THE /stips main_stips.py INSTEAD
-### USE THE /stips main_stips.py INSTEAD
+### USE THE Requests/stips main_stips.py INSTEAD
+### USE THE Requests/stips main_stips.py INSTEAD
+### USE THE Requests/stips main_stips.py INSTEAD
 
 # from time import sleep
 # import requests
@@ -27,9 +27,9 @@
 #
 #
 
-### USE THE /stips main_stips.py INSTEAD
-### USE THE /stips main_stips.py INSTEAD
-### USE THE /stips main_stips.py INSTEAD
+### USE THE Requests/stips main_stips.py INSTEAD
+### USE THE Requests/stips main_stips.py INSTEAD
+### USE THE Requests/stips main_stips.py INSTEAD
 
 # session = requests.session()
 #
