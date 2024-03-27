@@ -1,8 +1,6 @@
 from time import sleep
 import requests
 import json
-from color_printer import *
-
 from Models.TelegramPrinter import telegram_printer
 from Requests.Stips.A_LoginStips import LoginStips
 from Requests.Stips.B_StipsRoutinesTasks import StipsRoutinesTasks
@@ -12,11 +10,16 @@ import json
 from tqdm import tqdm
 from colorama import Fore, Back, Style
 import time
-import sys
+from Models.colorPrinter import *
 # from color_printer import *
+# from color_printer import *
+import sys
 import datetime
 from time import sleep
 import telegram_send
+import asyncio
+## USE THIS COMMAND:
+# pip install --upgrade python-telegram-bot==13.14 && pip install --upgrade telegram_send==0.34
 
 
 session = requests.session()
@@ -26,7 +29,7 @@ if __name__ == '__main__':
 
     ## 1. Loging user
     ## Save email on cookies to make sure cookies is updated!
-    EMAIL = input('Please insert ur user email:') or  "idanbit80+2@gmail.com"
+    EMAIL = input('Please insert ur user email:') or  "idanbit80+5@gmail.com"
     PASS = input('Please insert ur user password:') or  "Idan05423"
     loginData = LoginStips(session, EMAIL, PASS) # This is not a func call. just set vars in class
     print(f'1. Login User...')
@@ -40,6 +43,10 @@ if __name__ == '__main__':
     # }
     # endregion Can run here profile page to get full data based id
     printYellow(f'User {EMAIL} logged in!')
+    asyncio.run(
+
+        telegram_printer(f'User {EMAIL} logged in!')
+    )
     print('====================================================')
 
 
@@ -55,7 +62,7 @@ if __name__ == '__main__':
     ## 3. Notify when specific user Online?
     notify_online = input('3. Notify when some user online? (yes/no)') or 'yes'
     if notify_online.lower() == 'yes':
-        userId = input('Ok. Please enter the id of the user u like to follow:') or 337166
+        userId = input('Ok. Please enter the id of the user u like to follow:') or 381452
         printYellow('I will notify when this user online! [Available Soon..]')
         StipsRoutinesTasks.check_online_user(loginData, userId) # Get full data of specific user
     print('====================================================')
@@ -94,7 +101,7 @@ if __name__ == '__main__':
         printYellow('I will save ur pen messages history! [Available Soon..]')
         #         printGreen('[MOCK] Ur pen messages history: (3) \nאחי זה הכי אחי\nאם תרצו אין זו אגדה באדוקק')
         pen_history ,pen_stats = StipsRoutinesTasks.get_pen_msgs(loginData,
-                 current_user_id, pen_history, pen_stats, overall_msg_ids, overall_users_ids) # Save if its urs
+                                                                 current_user_id, pen_history, pen_stats, overall_msg_ids, overall_users_ids) # Save if its urs
     print('====================================================')
 
     ## 5. Save all pen messages stats? (overall msg & user count, gender)
@@ -120,7 +127,7 @@ if __name__ == '__main__':
 
             # Save my pen messages history
             # Save all pen messages stats
-            if save_ur_history_msgs: pen_history ,pen_stats = StipsRoutinesTasks\
+            if save_ur_history_msgs: pen_history ,pen_stats = StipsRoutinesTasks \
                 .get_pen_msgs(loginData, current_user_id, pen_history, pen_stats, overall_msg_ids, overall_users_ids) # Save if its urs
 
 
@@ -131,7 +138,7 @@ if __name__ == '__main__':
             # sleep(60)
             while_index += 1
             # * 1 min loading bar
-            for i in tqdm(range(10),
+            for i in tqdm(range(60),
                           desc=Fore.GREEN + "Loading",
                           ascii=False, ncols=30, unit=""):
                 time.sleep(1)
