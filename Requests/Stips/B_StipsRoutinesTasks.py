@@ -4,6 +4,7 @@ import json
 # from color_printer import *
 from Models.colorPrinter import *
 from Models.TelegramPrinter import telegram_printer
+import asyncio
 
 # a funcs that need to be in While True
 class StipsRoutinesTasks:
@@ -35,7 +36,9 @@ class StipsRoutinesTasks:
             # or notificationsCount != 0:
             printGreen(
                 f'User {self.userEmail} Have 📱 {messagesCount} massages & 🔔 {notificationsCount} notifications.')
-            telegram_printer(f'User {self.userEmail} Have 📱 {messagesCount} massages & 🔔 {notificationsCount} notifications.')
+
+            # Instead of directly calling telegram_printer, use asyncio.run:
+            asyncio.run(telegram_printer(f'User {self.userEmail} Have 📱 {messagesCount} massages & 🔔 {notificationsCount} notifications.'))
         elif isPrinting:  # (and messagesCount = 0)
             printGrey(f'User {self.userEmail} Have 0 new massages 📱.')
 
@@ -69,7 +72,10 @@ class StipsRoutinesTasks:
         # print(f'User {user_nick} online status is ')
         if user_online_status:
             printGreen(f'\nUser "{user_nick}" is currently Online ✅')
+            asyncio.run(
+
             telegram_printer(f'\nUser "{user_nick}" is currently Online ✅')
+            )
         else:
             printGrey(f'\nUser "{user_nick}" is currently Offline 🌚')
             # telegram_printer(f'\nUser "{user_nick}" is currently Offline 🌚')
@@ -121,7 +127,10 @@ class StipsRoutinesTasks:
                             'time_str': time_str,
                         })
                         printGreen(f'{user_nickname}: {msg_content}\npen-msg Added.')
+                        asyncio.run(
+
                         telegram_printer(f'{user_nickname}: {msg_content}\npen-msg Added.')
+                        )
 
             save_currentUser_penMsgs()
 
@@ -153,7 +162,10 @@ class StipsRoutinesTasks:
 
         # print(pen_stats)
         printGreen(f'Ur pen messages history: ({len(pen_history)})')
+        asyncio.run(
+
         telegram_printer(f'Ur pen messages history: ({len(pen_history)})')
+        )
         for _item in pen_history: printBlue(_item["msg_content"])
 
         # There was overall: 67 - pen massages from - 19 - users in the last 1 hour

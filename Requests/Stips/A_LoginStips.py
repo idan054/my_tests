@@ -1,6 +1,7 @@
 from time import sleep
 import requests
 import json
+import asyncio
 # from color_printer import *
 from Models.colorPrinter import *
 from Models.TelegramPrinter import telegram_printer
@@ -84,7 +85,10 @@ class LoginStips:
                 user_id, user_email = LoginStips.set_new_cookie(self)
             else:
                 printYellow("Logged in by Cookies 😋🍪")
-                telegram_printer("Logged in by Cookies 😋🍪")
+                # Instead of directly calling telegram_printer, use asyncio.run:
+                asyncio.run(
+                    telegram_printer("Logged in by Cookies 😋🍪")
+                )
                 # print(session.cookies)
         except:
             printYellow("Baking new Cookies... 🥣🧑‍🍳")

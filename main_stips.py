@@ -17,7 +17,7 @@ import sys
 import datetime
 from time import sleep
 import telegram_send
-
+import asyncio
 ## USE THIS COMMAND: 
 # pip install --upgrade python-telegram-bot==13.14 && pip install --upgrade telegram_send==0.34
 
@@ -43,7 +43,10 @@ if __name__ == '__main__':
     # }
     # endregion Can run here profile page to get full data based id
     printYellow(f'User {EMAIL} logged in!')
+    asyncio.run(
+
     telegram_printer(f'User {EMAIL} logged in!')
+    )
     print('====================================================')
 
 
