@@ -29,7 +29,7 @@ if __name__ == '__main__':
 
     ## 1. Loging user
     ## Save email on cookies to make sure cookies is updated!
-    EMAIL = input('Please insert ur user email:') or  "idanbit80+2@gmail.com"
+    EMAIL = input('Please insert ur user email:') or  "idanbit80+5@gmail.com"
     PASS = input('Please insert ur user password:') or  "Idan05423"
     loginData = LoginStips(session, EMAIL, PASS) # This is not a func call. just set vars in class
     print(f'1. Login User...')
@@ -59,7 +59,7 @@ if __name__ == '__main__':
     ## 3. Notify when specific user Online?
     notify_online = input('3. Notify when some user online? (yes/no)') or 'yes'
     if notify_online.lower() == 'yes':
-        userId = input('Ok. Please enter the id of the user u like to follow:') or 337166
+        userId = input('Ok. Please enter the id of the user u like to follow:') or 381452
         printYellow('I will notify when this user online! [Available Soon..]')
         StipsRoutinesTasks.check_online_user(loginData, userId) # Get full data of specific user
     print('====================================================')
